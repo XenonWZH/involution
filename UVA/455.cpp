@@ -17,6 +17,8 @@ int main()
 
         for (int i = 1; i <= strlen(str); i++)
         {
+            if (strlen(str) % i != 0)
+                continue;
             right = true;
             for (int j = 0; j < i; j++)
                 for (int k = j; k < strlen(str); k += i)
