@@ -57,8 +57,9 @@ string pos_to_string(bool to_RXCY, vector<int> pos)
         x = pos[1];
         while (x > 0)
         {
-            ans += (char)(x % 27 + 'A');
-            x /= 27;
+            x -= 1;
+            ans = (char)(x % 26 + 'A') + ans;
+            x /= 26;
         }
         ans += to_string(pos[0]);
     }
