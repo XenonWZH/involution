@@ -5,39 +5,27 @@
 
 using namespace std;
 
-struct Node
-{
-    int v = -1, father = {-1}, son[2] = {-1, -1};
-};
+int fa[1001];
 
-Node tree[2005];
-int len;
-
-void merge(int x, int y)
+void make_set(int size)
 {
-    int pos;
-    len++;
-    for (pos = x; tree[pos].father != -1; pos = tree[pos].father);
-    tree[len].son[0] = pos;
-    for (pos = y; tree[pos].father != -1; pos = tree[pos].father);
-    tree[len].son[1] = pos;
-    tree[x].father = tree[y].father = len;
+    for (int i = 0; i < size; i++)
+        fa[i] = i;
+    return;
 }
 
-bool search(int pos, int x)
+int find(int x)
 {
-    if (tree[pos].v == x)
-        return true;
-    if (tree[pos].son[0] == -1 && tree[pos].son[1] == -1)
-        return false;
-    return search(tree[pos].son[0], x) || search(tree[pos].son[1], x);
+    if (x != fa[x])
+        fa[x] = find(fa[x]);
+    return fa[x];
 }
 
-bool find(int x, int y)
+void union_set(int x, int y)
 {
-    int pos;
-    for (pos = x; tree[pos].father != -1; pos = tree[pos].father);
-    return search(pos, y);
+    x = find(x);
+    y = find(y);
+    fa[x] = y;
 }
 
 int main()
@@ -45,17 +33,15 @@ int main()
     int n, m, t, x, y;
 
     cin >> n >> m;
-    len = n;
-    for (int i = 1; i <= n; i++)
-        tree[i].v = i;
+    make_set(n);
     for (int i = 0; i < m; i++)
     {
         cin >> t >> x >> y;
 
         if (t == 0)
-            merge(x, y);
+            union_set(x, y);
         if (t == 1)
-            cout << (int)find(x, y) << endl;
+            cout << (int)(find(x) == find(y)) << endl;
     }
 
     return 0;
