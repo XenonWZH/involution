@@ -12,38 +12,35 @@ using namespace std;
 int main()
 {
     int n, m, cnt = 0, pos;
-    char tree[1 << 7], c;
-    string str;
+    char tree[1 << 8];
+    string str, direction;
 
     while (scanf("%d", &n) != EOF)
     {
         if (n == 0)
             break;
-        getchar();
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i <= n; i++)
             cin >> str;
-        getchar();
         for (int i = pow(2, n); i < pow(2, n + 1); i++)
-            tree[i] = getchar();
+            tree[i] = str[i - pow(2, n)];
         scanf("%d", &m);
-        getchar();
         str = "";
         for (int i = 0; i < m; i++)
         {
             pos = 1;
-            for (int j = 1; j <= n; j++)
+            cin >> direction;
+
+            for (int j = 0; j < n; j++)
             {
-                c = getchar();
                 pos *= 2;
-                if (c == '1')
+                if (direction[j] == '1')
                     pos++;
             }
             str += tree[pos];
-            getchar();
         }
 
-        printf("S-Tree #%d\n", ++cnt);
+        printf("S-Tree #%d:\n", ++cnt);
         cout << str << endl << endl;
     }
 
