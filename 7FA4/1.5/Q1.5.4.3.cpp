@@ -1,3 +1,6 @@
+// Q1.5.4.3. IO方式转换1
+// WzhDnwzWzh
+
 #include <cstdio>
 #include <cctype>
 
