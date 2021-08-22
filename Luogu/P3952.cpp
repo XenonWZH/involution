@@ -4,7 +4,8 @@
 #include <iostream>
 #include <cstring>
 
-int main() {
+int main()
+{
     int t, l, o, nx, ny, unshown;
     std::string tmp, stack[100], x, y;
     int depth, top, maxn;
@@ -12,7 +13,8 @@ int main() {
     memset(f, 0, sizeof(f));
 
     std::cin >> t;
-    while (t > 0) {
+    while (t > 0)
+    {
         top = depth = maxn = 0;
         unshown = 100;
         err = false;
@@ -20,12 +22,14 @@ int main() {
         std::cin >> l >> tmp;
         if (tmp[2] == '1')
             o = 0;
-        else {
+        else
+        {
             o = 0;
             for (int each = 4; tmp[each] >= '0' && tmp[each] <= '9'; each++)
                 o = o * 10 + tmp[each] - '0';
         }
-        for (int each = 0; each < l; each++) {
+        for (int each = 0; each < l; each++)
+        {
             std::cin >> tmp;
             if (tmp == "F") {
                 std::cin >> stack[top] >> x >> y;
@@ -35,19 +39,24 @@ int main() {
                         err = true;
                 if (x == "n" && y == "n")
                     f[top] = false;
-                if (x == "n" && y != "n") {
+                if (x == "n" && y != "n")
+                {
                     f[top] = false;
                     if (top < unshown)
                         unshown = top;
                 }
-                if (x != "n" && y == "n") {
-                    if (top < unshown) {
+                if (x != "n" && y == "n")
+                {
+                    if (top < unshown)
+                    {
                         f[top] = true;
                         depth++;
-                    } else
+                    }
+                    else
                         f[top] = false;
                 }
-                if (x != "n" && y != "n") {
+                if (x != "n" && y != "n")
+                {
                     nx = ny = 0;
                     for (int j = 0; j < x.length(); j++)
                         nx = nx * 10 + x[j] - '0';
@@ -60,10 +69,13 @@ int main() {
                 top++;
                 if (depth > maxn)
                     maxn = depth;
-            } else {
+            }
+            else
+            {
                 if (top == 0)
                     err = true;
-                else {
+                else
+                {
                     if (top - 1 == unshown)
                         unshown = 100;
                     else if (f[top - 1])
