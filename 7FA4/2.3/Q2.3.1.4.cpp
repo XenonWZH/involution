@@ -1,37 +1,39 @@
 // Q2.3.1.4. 背包问题：不超过的01背包（输出方案）
 // WzhDnwzWzh
 
-#include <iostream>
 #include <cstring>
-#include <string>
+#include <iostream>
+#include <vector>
 
-using namespace std;
+const int MAXN = 100, MAXM = 10000;
 
-int dp[10001], n, M, m, v;
-bool way[10001][10001];
-string src, des;
+int main() {
+    int n, M;
 
-int main()
-{
-    memset(way, false, sizeof(way));
-    memset(dp, 0, sizeof(dp));
+    std::cin >> n >> M;
+    static int m[MAXN + 5], v[MAXN + 5];
+    for (int i = 1; i <= n; i++) std::cin >> m[i] >> v[i];
 
-    cin >> n >> M;
-    for (int i = 1; i <= n; i++)
-    {
-        cin >> m >> v;
-        for (int j = M; j >= m; j--)
-            if (dp[j - m] + v > dp[j])
-            {
-                dp[j] = dp[j - m] + v;
-                way[j][i] = true;
-            }
+    static int dp[MAXN + 5][MAXM + 5];
+    std::vector<int> way;
+    memset(dp, 0, sizeof(dp)); 
+    for (int i = n; i >= 1; i--) {
+        for (int j = 0; j <= M; j++) {
+            dp[i][j] = dp[i + 1][j];
+            if (j > m[i]) dp[i][j] = std::max(dp[i][j], dp[i + 1][j - m[i]] + v[i]);
+        }
     }
 
-    cout << dp[M] << endl;
-    for (int i = 1; i <= n; i++)
-        if (way[M][i])
-            cout << i << " ";
-    cout << endl;
+    std::cout << dp[1][M] << std::endl;
+
+    int tmp = M;
+    for (int i = 1; i <= n; i++) {
+        if (tmp >= m[i] && dp[i][tmp] == dp[i + 1][tmp - m[i]] + v[i]) {
+            tmp -= m[i];
+            std::cout << i << " ";
+        }
+    }
+
+    std::cout << std::endl;
     return 0;
 }
