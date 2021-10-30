@@ -24,6 +24,11 @@ int read() {
 }
 
 int main() {
+#ifndef LOCAL
+    freopen("airport.in", "r", stdin);
+    freopen("airport.out", "w", stdout);
+#endif
+
     int n, m1, m2;
 
     std::cin >> n >> m1 >> m2;
@@ -101,6 +106,11 @@ int main() {
     }
 
     std::cout << ans << std::endl;
+
+#ifndef LOCAL
+    fclose(stdin);
+    fclose(stdout);
+#endif
 
     return 0;
 }
