@@ -9,20 +9,6 @@
 
 const int MAXN = 100007;
 
-int read() {
-    int x = 0, w = 1;
-    char ch = 0;
-    while (ch < '0' || ch > '9') {
-        if (ch == '-') w = -1;
-        ch = getchar();
-    }
-    while (ch >= '0' && ch <= '9') {
-        x = x * 10 + (ch - '0');
-        ch = getchar();
-    }
-    return x * w;
-}
-
 int main() {
 #ifndef LOCAL
     freopen("airport.in", "r", stdin);
@@ -37,13 +23,11 @@ int main() {
     static std::pair<int, int> ab[MAXN];
 
     for (int i = 0, x, y; i < m1; i++) {
-        x = read();
-        y = read();
+        std::cin >> x >> y;
         ch[i] = std::make_pair(x, y);
     }
     for (int i = 0, x, y; i < m2; i++) {
-        x = read();
-        y = read();
+        std::cin >> x >> y;
         ab[i] = std::make_pair(x, y);
     }
 
