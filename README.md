@@ -1,2 +1,2 @@
-# I-wanna-AK-IOI
+# involution
 It's my personal OI problems' database.
