@@ -33,3 +33,9 @@
 
 # Visual Studio Code
 .vscode
+
+# Olympiad in Informatics
+*.in
+*.out
+*.ans
+check.sh
