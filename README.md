@@ -1,2 +1,2 @@
 # involution
-It's my personal OI problems' database.
+我要卷 OI！
