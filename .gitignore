@@ -31,11 +31,6 @@
 *.out
 *.app
 
-# Visual Studio Code
-.vscode
-
 # Olympiad in Informatics
-*.in
-*.out
-*.ans
-check.sh
+.vscode
+compile_flags.txt
