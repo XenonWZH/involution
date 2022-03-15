@@ -33,8 +33,5 @@
 
 # Olympiad in Informatics
 .vscode
-compile_flags.txt
-.clang-format
 .in
 .ans
-.cph
