@@ -15,7 +15,7 @@ double solveCD(double x, double y) {
     std::pair<double, double> lMid, rMid;
     double lVal = -100, rVal = dis(std::make_pair(ax, ay), std::make_pair(dx, dy)) / rr;
 
-    while (std::abs(rVal - lVal) >= 0.000001) {
+    while (abs(rVal - lVal) >= 0.000001) {
         lMid = std::make_pair(l.first + (r.first - l.first) / 3.0, l.second + (r.second - l.second) / 3.0);
         rMid = std::make_pair(l.first + (r.first - l.first) / 1.5, l.second + (r.second - l.second) / 1.5);
         lVal = dis(lMid, std::make_pair(x, y)) / rr + dis(lMid, std::make_pair(dx, dy)) / q;
@@ -34,7 +34,7 @@ double solveAB() {
     std::pair<double, double> lMid, rMid;
     double lVal = -100, rVal = dis(std::make_pair(ax, ay), std::make_pair(bx, by)) / p;
 
-    while (std::abs(rVal - lVal) >= 0.000001) {
+    while (abs(rVal - lVal) >= 0.000001) {
         lMid = std::make_pair(l.first + (r.first - l.first) / 3.0, l.second + (r.second - l.second) / 3.0);
         rMid = std::make_pair(l.first + (r.first - l.first) / 1.5, l.second + (r.second - l.second) / 1.5);
         lVal = dis(lMid, std::make_pair(ax, ay)) / p + solveCD(lMid.first, lMid.second);
