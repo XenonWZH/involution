@@ -33,5 +33,7 @@
 
 # Olympiad in Informatics
 .vscode
-.in
-.ans
+*.in
+*.ans
+*.bat
+*.sh
