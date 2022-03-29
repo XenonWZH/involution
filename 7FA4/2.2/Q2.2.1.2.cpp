@@ -1,92 +1,26 @@
-// Q2.2.1.2. 单词接龙
-// WzhDnwzWzh
+///max-difference=100
+#include <cstdio>
 
-#include <iostream>
-#include <string>
-#include <cstring>
+const int N = 3009;
 
-using namespace std;
+int f[N], arr[N];
+bool vis[N];
 
-int num, len = 1, ans = 0;
-string str[20], last = "";
-char dragon[401];
-bool mark[20];
-
-void dfs(int n)
-{
-    int tmp;
-    string tmp2;
-
-    if (n == 0)
-        if (ans < len)
-        {
-            ans = len;
-            return;
-        }
-    int begin;
-    for (int i = 0; i < num; i++)
-    {
-        if (!mark[i] && str[i] != last)
-        {
-            for (int j = (len > str[i].length() ? len - str[i].length() : 0); j < len; j++)
-            {
-                begin = j;
-                for (int k = j; k < len; k++)
-                {
-                    if (dragon[k] != str[i][k - j])
-                    {
-                        begin = -1;
-                        break;
-                    }
-                }
-                if (begin != -1 && (len == 1 || begin != (len > str[i].length() ? len - str[i].length() : 0)))
-                {
-                    for (int j = begin; j < begin + str[i].length(); j++)
-                        dragon[j] = str[i][j - begin];
-                    tmp = len;
-                    tmp2 = last;
-                    len = begin + str[i].length();
-                    if (ans < len)
-                        ans = len;
-                    last = str[i];
-                    mark[i] = true;
-                    dfs(n - 1);
-                    mark[i] = false;
-                    last = tmp2;
-                    len = tmp;
-                }
-            }
-        }
-        if (ans < len)
-            ans = len;
-    }
+int dp(int a){
+	if(vis[a])
+		return f[a];
+    vis[a] = true;
+	for(int i = a - 1; i >= 0; i--)
+		if(arr[i] <= arr[a] && f[a] < dp(i) + 1)
+			f[a] = dp(i) + 1;
+	return f[a];
 }
 
-int main()
-{
-    int n, a[10];
-    string ts;
-    memset(mark, false, sizeof(mark));
-
-    cin >> n;
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
-    for (int i = 0; i < n; i++)
-    {
-        cin >> ts;
-        for (int j = 0; j < a[i]; j++)
-            str[num++] = ts;
-    }
-    cin >> dragon[0];
-
-    if (str[0] == "bbcb")
-    {
-        cout << "93" << endl;
-        return 0;
-    }
-
-    dfs(num);
-
-    cout << (ans == 1 ? 0 : ans) << endl;
-    return 0;
+int main() {
+	int n; scanf("%d", &n);
+	for(int i = 1; i <= n; i++) 
+		scanf("%d", arr + i);
+	int a = 0;for(int i=n;i>0;i--)if(a<dp(i))a=dp(i);
+	printf("%d\n", a);
+	return 0;
 }

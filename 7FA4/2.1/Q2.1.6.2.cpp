@@ -1,4 +1,4 @@
-// Q2.1.6.2. 有障碍的八皇后问题
+// Q2.2.4.2. 传纸条2
 // WzhDnwzWzh
 
 #include <iostream>
@@ -6,51 +6,40 @@
 
 using namespace std;
 
-int queen[9], n, m, ans = 0;
-bool ban[9][9];
+int kids[300001], num[300001], n, ans = 0, maxn = 0;
+bool vis[300001];
 
-bool able(int x, int y)
+void dfs(int pos, int step)
 {
-    if (ban[x][y])
-        return false;
-    for (int i = 1; i < x; i++)
-        if (queen[i] == y || i + queen[i] == x + y || i - queen[i] == x - y)
-            return false;
-    return true;
-}
-
-void dfs(int x)
-{
-    if (x > n)
+    if (vis[pos])
     {
-        ans++;
-        return;
+        for (int i = 0; i < step; i++)
+            if (num[i] == pos)
+            {
+                ans += step - i;
+                if (step - i > maxn)
+                    maxn = step - i;
+                return;
+            }
     }
-    for (int i = 1; i <= n; i++)
+    else
     {
-        if (able(x, i))
-        {
-            queen[x] = i;
-            dfs(x + 1);
-        }
+        vis[pos] = true;
+        num[step] = pos;
+        dfs(kids[pos], step + 1);
     }
 }
 
 int main()
 {
-    int x, y;
-    memset(queen, 0, sizeof(queen));
-    memset(ban, false, sizeof(ban));
+    memset(vis, false, sizeof(vis));
 
-    cin >> n >> m;
-    for (int i = 0; i < m; i++)
-    {
-        cin >> x >> y;
-        ban[x][y] = true;
-    }
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+        cin >> kids[i];
+    for (int i = 1; i <= n; i++)
+        dfs(i, 0);
 
-    dfs(1);
-
-    cout << ans << endl;
+    cout << ans << " " << maxn << endl;
     return 0;
 }

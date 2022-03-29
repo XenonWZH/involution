@@ -1,84 +1,30 @@
-// Q2.2.1.3. 算24点
+// Q2.2.5.3. 数塔问题（DEBUG）
 // WzhDnwzWzh
 
-#include <iostream>
-#include <algorithm>
+#include <cstdio>
 #include <cstring>
 
-using namespace std;
+const int N = 1009;
 
-double f(double x, int k, double y)
-{
-    if (k == 0)
-        return x + y;
-    else if (k == 1)
-        return x - y;
-    else if (k == 2)
-        return x * y;
-    else
-        return x / y;
-}
+int a[N][N], f[N][N];
 
 int main()
 {
-    double a[5];
-    int ans[101];
-    int t;
-    string s;
-    memset(ans, 0, sizeof(ans));
+    int n;
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= i; j++)
+            scanf("%d", &a[i][j]);
 
-    cin >> t;
-    for (int i = 0; i < t; i++)
-    {
-        cin >> s;
-        for (int j = 0; j < 4; j++)
+    for (int i = n; i >= 1; i--)
+        for (int j = 1; j <= n; j++)
         {
-            if (s[j] == 'O')
-                a[j] = 10;
-            else if (s[j] == 'A')
-                a[j] = 1;
-            else if (s[j] == 'J')
-                a[j] = 11;
-            else if (s[j] == 'Q')
-                a[j] = 12;
-            else if (s[j] == 'K')
-                a[j] = 13;
+            if (f[i + 1][j] > f[i + 1][j + 1])
+                f[i][j] = f[i + 1][j] + a[i][j];
             else
-                a[j] = s[j] - '0';
+                f[i][j] = f[i + 1][j + 1] + a[i][j];
         }
 
-        sort(a, a + 4);
-        do
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    for (int l = 0; l < 4; l++)
-                    {
-                        if (f(f(f(a[0], j, a[1]), k, a[2]), l, a[3]) == 24)
-                            ans[i] = 1;
-                        else if (f(f(a[0], j, f(a[1], k, a[2])), l, a[3]) == 24)
-                            ans[i] = 1;
-                        else if (f(a[0], j, f(f(a[1], k, a[2]), l, a[3])) == 24)
-                            ans[i] = 1;
-                        else if (f(f(a[0], j, a[1]), l, f(a[2], k, a[3])) == 24)
-                            ans[i] = 1;
-                        else if (f(a[0], j, f(a[1], k, f(a[2], l, a[3]))) == 24)
-                            ans[i] = 1;
-                    }
-                }
-            }
-        } while (next_permutation(a, a + 4));
-    }
-
-    for (int i = 0; i < t; i++)
-    {
-        cout << ans[i] << ' ';
-        if ((i + 1) % 10 == 0)
-            cout << endl;
-    }
-    if (t % 10 != 0)
-        cout << endl;
+    printf("%d\n", f[1][1]);
     return 0;
 }
