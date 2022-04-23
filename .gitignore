@@ -33,6 +33,7 @@
 
 # Olympiad in Informatics
 .vscode
+compile_flags.txt
 *.in
 *.ans
 *.bat
