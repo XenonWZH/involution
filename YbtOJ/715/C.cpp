@@ -4,6 +4,11 @@
 const int MAXN = 50;
 
 int main() {
+#ifndef DBG
+    freopen("max.in", "r", stdin);
+    freopen("max.out", "w", stdout);
+#endif
+
     int n, p;
     static int a[MAXN + 5];
 
@@ -44,6 +49,11 @@ int main() {
     }
 
     printf("%lf\n", ans / fac[n]);
+
+#ifndef DBG
+    fclose(stdin);
+    fclose(stdout);
+#endif
 
     return 0;
 }
