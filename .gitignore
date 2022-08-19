@@ -41,3 +41,5 @@ compile_flags.txt
 *.ans
 *.bat
 *.sh
+*.py
+*.txt
