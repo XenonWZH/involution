@@ -4,9 +4,9 @@
 const int MAXN = 80000;
 
 struct Node {
-    struct Edge *edges;
+    struct Edge *e;
     int dfn, low;
-    bool visited;
+    bool v;
     struct Connected *connected;
 } N[2 * MAXN + 1];
 
@@ -14,7 +14,7 @@ struct Edge {
     Node *from, *to;
     Edge *next;
 
-    Edge(Node *from, Node *to) : from(from), to(to), next(from->edges) {}
+    Edge(Node *from, Node *to) : from(from), to(to), next(from->e) {}
 };
 
 struct Connected {
@@ -22,7 +22,7 @@ struct Connected {
 } connecteds[2 * MAXN + 1];
 
 inline void addEdge(int from, int to) {
-    N[from].edges = new Edge(&N[from], &N[to]);
+    N[from].e = new Edge(&N[from], &N[to]);
 }
 
 void tarjan(Node *x) {
@@ -30,13 +30,13 @@ void tarjan(Node *x) {
     static std::stack<Node *> stk;
     x->dfn = x->low = ++num;
     stk.push(x);
-    x->visited = true;
+    x->v = true;
 
-    for (Edge *edges = x->edges; edges; edges = edges->next) {
+    for (Edge *edges = x->e; edges; edges = edges->next) {
         if (!edges->to->dfn) {
             tarjan(edges->to);
             x->low = std::min(x->low, edges->to->low);
-        } else if (edges->to->visited) {
+        } else if (edges->to->v) {
             x->low = std::min(x->low, edges->to->dfn);
         }
     }
@@ -48,7 +48,7 @@ void tarjan(Node *x) {
         do {
             y = stk.top();
             stk.pop();
-            y->visited = false;
+            y->v = false;
             y->connected = &connecteds[counts];
             connecteds[counts].size++;
         } while (x != y);
