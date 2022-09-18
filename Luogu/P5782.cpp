@@ -1,28 +1,28 @@
 #include <cstdio>
+#include <vector>
 #include <stack>
 
 const int MAXN = 80000;
 
 struct Node {
-    struct Edge *e;
+    std::vector<struct Edge> e;
     int dfn, low;
     bool v;
     struct Connected *connected;
 } N[2 * MAXN + 1];
 
 struct Edge {
-    Node *from, *to;
-    Edge *next;
+    Node *s, *t;
 
-    Edge(Node *from, Node *to) : from(from), to(to), next(from->e) {}
+    Edge(Node *s, Node *t) : s(s), t(t) {}
 };
 
 struct Connected {
     int size, id;
 } connecteds[2 * MAXN + 1];
 
-inline void addEdge(int from, int to) {
-    N[from].e = new Edge(&N[from], &N[to]);
+inline void addEdge(int s, int t) {
+    N[s].e.push_back(Edge(&N[s], &N[t]));
 }
 
 void tarjan(Node *x) {
@@ -32,12 +32,12 @@ void tarjan(Node *x) {
     stk.push(x);
     x->v = true;
 
-    for (Edge *edges = x->e; edges; edges = edges->next) {
-        if (!edges->to->dfn) {
-            tarjan(edges->to);
-            x->low = std::min(x->low, edges->to->low);
-        } else if (edges->to->v) {
-            x->low = std::min(x->low, edges->to->dfn);
+    for (Edge *e = &x->e.front(); e && e <= &x->e.back(); e++) {
+        if (!e->t->dfn) {
+            tarjan(e->t);
+            x->low = std::min(x->low, e->t->low);
+        } else if (e->t->v) {
+            x->low = std::min(x->low, e->t->dfn);
         }
     }
 
