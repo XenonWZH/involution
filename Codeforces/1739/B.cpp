@@ -13,7 +13,7 @@ void solve() {
     static int a[MAXN + 1];
     a[1] = d[1];
     for (int i = 2; i <= n; i++) {
-        if (a[i - 1] - d[i] > 0 && d[i] != 0) {
+        if (a[i - 1] - d[i] >= 0 && d[i] != 0) {
             puts("-1");
             return;
         } else a[i] = a[i - 1] + d[i];
