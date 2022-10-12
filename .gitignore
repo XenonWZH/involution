@@ -32,7 +32,6 @@
 *.app
 
 # Olympiad in Informatics
-Template
 .vscode
 .cph
 compile_flags.txt
@@ -41,6 +40,5 @@ compile_flags.txt
 *.ans
 *.bat
 *.sh
-*.py
 *.txt
 template.cpp
