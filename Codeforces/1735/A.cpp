@@ -1,5 +1,4 @@
 #include <cstdio>
-#include <iostream>
 
 void solve() {
     int n;
@@ -7,7 +6,6 @@ void solve() {
     scanf("%d", &n);
 
     printf("%d\n", n / 3 - 2);
-    printf("%d\n", ((n - 2) / 3) - 2);
 }
 
 int main() {
