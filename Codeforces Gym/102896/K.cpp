@@ -1,32 +1,31 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 
 namespace XenonWZH {
 int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+
     int n;
-    scanf("%d", &n);
+    std::cin >> n;
 
-    int cnt = 1;
-    std::map<int, int> vis;
+    std::vector<std::pair<int, int>> ans;
     for (int i = 1; i <= n; i++) {
-        int k;
-        scanf("%d", &k);
+        int p;
+        std::string s;
+        std::cin >> p >> s;
 
-        std::vector<int> p(k + 1);
-        bool add = false;
+        std::vector<int> cnt(10, 0);
+        for (char c : s) cnt[c - '0']++;
 
-        int mx = 0;
-        for (int i = 1; i <= k; i++) {
-            scanf("%d", &p[i]);
-            mx = std::max(mx, vis[p[i]]);
-        }
-
-        mx++;
-        cnt = std::max(mx, cnt);
-
-        for (auto e : p) vis[e] = mx;
+        if (cnt[2] >= 2 && cnt[1] && cnt[0]) ans.push_back(std::make_pair(p, i));
     }
 
-    printf("%d\n", cnt);
+    if (ans.size()) {
+        std::sort(ans.begin(), ans.end());
+        std::cout << ans[0].second << "\n";
+    } else std::cout << "0\n";
 
     return 0;
 }
